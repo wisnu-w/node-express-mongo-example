@@ -6,7 +6,12 @@ const router = express.Router()
 
 const itemSchema = Joi.object().keys({
   name: Joi.string(),
-  quantity: Joi.number().integer().min(0)
+  address: Joi.string(),
+  minimum: Joi.string(),
+  maximum: Joi.string(),
+  rate: Joi.string(),
+  presale: Joi.string(),
+  lock: Joi.string()
 })
 
 router.post('/item', (req, res) => {
@@ -32,9 +37,15 @@ router.get('/items', (req, res) => {
   getItems()
     .then((items) => {
       items = items.map((item) => ({
-        id: item._id,
+        //id: item._id,
         name: item.name,
-        quantity: item.quantity
+        address: item.address,
+        quantity: item.quantity,
+        minimum: item.minimum,
+        maximum: item.maximum,
+        rate: item.rate,
+        presale: item.presale,
+        lock: item.lock
       }))
       res.json(items)
     })
